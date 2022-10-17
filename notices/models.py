@@ -38,6 +38,7 @@ class Notice(models.Model):
                     "notices_version": version,
                     "notices_title": getattr(settings, "NOTICES_TITLE", "New!"),
                     "notices_content": getattr(settings, "NOTICES_CONTENT", ""),
+                    "notices_color": getattr(settings, "NOTICES_COLOR", None),
                 }
 
     def has_expired(self):

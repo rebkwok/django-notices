@@ -7,7 +7,7 @@
 	bottom: 0;
 	width: 100%;
 	z-index: 99998;
-	background: rgba(0,0,0,0.8);
+	background: rgba(0,0,0,0.5);
 }
 
 .modal-window {
@@ -34,7 +34,8 @@
 }
 
 .modal-title {
-	border-bottom: solid #8732a8;
+	border-bottom: solid;
+	border-color: #8732a8;
 	font-size: larger;
 	font-family: sans-serif;
 	font-weight: bold;

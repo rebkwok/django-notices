@@ -20,6 +20,7 @@ flake8 = "^5.0.4"
 isort = "^5.10.1"
 pytest-cov = "^4.0.0"
 flake8-pyproject = "^1.1.0.post0"
+pytest-env = "^0.6.2"
 
 [tool.flake8]
 extend-exclude = [".venv", "venv"]

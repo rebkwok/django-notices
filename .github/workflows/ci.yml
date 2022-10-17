@@ -37,6 +37,4 @@ jobs:
         run: poetry run flake8
 
       - name: Test
-        env:
-          SECRET_KEY: secret
         run: poetry run pytest --cov=. .

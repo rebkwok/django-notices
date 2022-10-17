@@ -38,6 +38,7 @@ def test_from_settings_with_settings(settings):
         "notices_version": 3,
         "notices_title": "New!",
         "notices_content": "",
+        "notices_color": None,
     }
 
 

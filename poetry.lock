@@ -313,6 +313,17 @@ docs = ["sphinx", "sphinx-rtd-theme"]
 testing = ["Django", "django-configurations (>=2.0)"]
 
 [[package]]
+name = "pytest-env"
+version = "0.6.2"
+description = "py.test plugin that allows you to add environment variables."
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+pytest = ">=2.6.0"
+
+[[package]]
 name = "sqlparse"
 version = "0.4.3"
 description = "A non-validating SQL parser."
@@ -347,7 +358,7 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "ccbfc479d5afb4b56f286949241c3867f67df34e2ee32032dbc1e3d4ea6db817"
+content-hash = "20548fc717064e8a6bf7a4423f1317519ce4e692e6a11ac3b94ff74714774a3e"
 
 [metadata.files]
 asgiref = [
@@ -533,6 +544,9 @@ pytest-cov = [
 pytest-django = [
     {file = "pytest-django-4.5.2.tar.gz", hash = "sha256:d9076f759bb7c36939dbdd5ae6633c18edfc2902d1a69fdbefd2426b970ce6c2"},
     {file = "pytest_django-4.5.2-py3-none-any.whl", hash = "sha256:c60834861933773109334fe5a53e83d1ef4828f2203a1d6a0fa9972f4f75ab3e"},
+]
+pytest-env = [
+    {file = "pytest-env-0.6.2.tar.gz", hash = "sha256:7e94956aef7f2764f3c147d216ce066bf6c42948bb9e293169b1b1c880a580c2"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.3-py3-none-any.whl", hash = "sha256:0323c0ec29cd52bceabc1b4d9d579e311f3e4961b98d174201d5622a23b85e34"},

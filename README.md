@@ -38,6 +38,11 @@ TEMPLATES = [
 ]
 ```             
 
+To customise the notice colour (button and title border), add
+```
+NOTICES_COLOR=<color>  # any css-acceptable colour
+```
+
 ## Static assets
 Add `notices/css/notices.css` and `notices/js/notices.js` to your markup.
 

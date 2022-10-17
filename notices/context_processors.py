@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from notices.models import Notice
 
 
@@ -10,13 +12,15 @@ def notices(request):
     # if no settings, load latest version from db
     version = Notice.latest_version()
     if version == 0:
-        title = content = None
+        title = content = color = None
     else:
         latest_notice = Notice.latest_notice()
         title = latest_notice.title
         content = latest_notice.content
+        color = getattr(settings, "NOTICES_COLOR", None)
     return {
         "notices_version": version,
         "notices_title": title,
         "notices_content": content,
+        "notices_color": color,
     }
