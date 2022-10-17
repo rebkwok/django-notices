@@ -10,3 +10,4 @@ htmlcov/
 __pycache__
 .pytest_cache/
 test.db
+dist/
