@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "django-notices"
+name = "django-one-time-notices"
 version = "0.1.0"
 description = ""
 authors = ["Becky Smith <rebkwok@gmail.com>"]

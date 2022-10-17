@@ -1,6 +1,11 @@
-# django-notices
+# django-one-time-notices
 
 Displays a modal with notice content if a user hasn't seen it yet.
+
+## Install
+```
+pip install django-one-time-notices
+```
 
 ## Settings
 
@@ -12,8 +17,6 @@ django.contrib.admin
 ...
 notices
 ```
-
-To use the model and update via admin, also include `django.contrib.auth` and `django.contrib.admin` in `INSTALLED_APPS`.
 
 
 Add to `TEMPLATES['OPTIONS']`:
