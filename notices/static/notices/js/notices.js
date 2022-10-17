@@ -1,3 +1,13 @@
+(
+    function () {
+        const clear = document.getElementById('noticesClear');
+        if (clear) {
+            document.cookie = "notices_seen=; Max-Age=-99999999;"
+            clear.remove()
+        };
+    }
+)();
+
 var noticesCookie = {
     createCookie: function (value, days) {
         var date = new Date(),

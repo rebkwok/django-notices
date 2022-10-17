@@ -45,7 +45,8 @@ source = ["notices"]
 omit = [
     "notices/example_project/example_project/asgi.py",
     "notices/example_project/example_project/wsgi.py",
-    "notices/example_project/manage.py"
+    "notices/example_project/manage.py",
+    "manage.py",
 ]
 
 [tool.coverage.report]

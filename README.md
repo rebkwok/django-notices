@@ -4,13 +4,17 @@ Displays a modal with notice content if a user hasn't seen it yet.
 
 ## Settings
 
-Add `notices` to `INSTALLED_APPS` 
+Add to `INSTALLED_APPS`:
 
-`NOTICES_TITLE`: default "New!
-`NOTICES_VERSION`: an integer, >= 1
-`NOTICES_CONTENT`: The modal content. A string, use `\n` linebreaks if required.
+```
+django.contrib.auth
+django.contrib.admin
+...
+notices
+```
 
-Set `NOTICES_VERSION` to 0 to never show the modal.
+To use the model and update via admin, also include `django.contrib.auth` and `django.contrib.admin` in `INSTALLED_APPS`.
+
 
 Add to `TEMPLATES['OPTIONS']`:
 ```
@@ -45,8 +49,24 @@ and add the modal:
 {% NoticesModal %} 
 ```
 
-## Updating the notices
-When you have a new notice to display, update the `NOTICES_CONTENT` and increment the `NOTICES_VERSION` to display the new content and update the cookie again.
+The modal will be shown.  Once it has been dismissed it won't be shown again unless the notice version changes (see below) or the `notice_seen` cookie is deleted.
 
-Use environment variables to load the `NOTICES_` settings to avoid having to change
-code for updates.
+## Setting/updating the notice
+
+### via models and django admin
+Add a `Notice` instance in the django admin. 
+
+Notices have `title`, `content`, `version` and optional `expires_at` fields.
+
+Version can be any positive number; it defaults to incrementing the last version number.  Set the `expires_at` datetime to avoid showing this notice after the specified date, even if the user has never seen/dismissed it.
+
+To show a new notice, add another Notice instance with an incremented version number.
+
+### via django settings
+
+Override the Notice model by adding to your `settings.py`:
+`NOTICES_VERSION` # an integer
+`NOTICES_TITLE`  # optional, default = "New!"
+`NOTICES_CONTENT`  # optional, default = ""
+
+Set `NOTICES_VERSION = 0` to clear the cookie and disable showing notices at all.

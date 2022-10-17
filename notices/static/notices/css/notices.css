@@ -21,6 +21,7 @@
 	border-radius: 5px;
 	font-family: sans-serif;
 	top: 50px;
+	min-width: 25%;
 }
 
 .modal-window h1,
