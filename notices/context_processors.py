@@ -12,15 +12,22 @@ def notices(request):
     # if no settings, load latest version from db
     version = Notice.latest_version()
     if version == 0:
-        title = content = color = None
+        title = content = colour = timeout_seconds = None
     else:
         latest_notice = Notice.latest_notice()
         title = latest_notice.title
         content = latest_notice.content
-        color = getattr(settings, "NOTICES_COLOR", None)
+        if hasattr(settings, "NOTICES_COLOUR"):
+            colour_setting = "NOTICES_COLOUR"
+        else:
+            colour_setting = "NOTICES_COLOR"
+        colour = getattr(settings, colour_setting, None)
+        # cookie timeout; default to 10 years
+        timeout_seconds = latest_notice.timeout_seconds
     return {
         "notices_version": version,
         "notices_title": title,
         "notices_content": content,
-        "notices_color": color,
+        "notices_colour": colour,
+        "notices_timeout_seconds": timeout_seconds,
     }

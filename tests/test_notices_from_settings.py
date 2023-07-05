@@ -12,6 +12,8 @@ def test_modal_with_settings(client, settings):
     settings.NOTICES_TITLE = "Test New Notice"
     settings.NOTICES_CONTENT = "Some content\n\nwith multiple lines"
     settings.NOTICES_VERSION = 1
+    settings.NOTICES_TIMEOUT_SECONDS = 10
+    settings.NOTICES_COLOUR = "#fff"
 
     resp = client.get("/", follow=True)
     assert_in_content(
@@ -19,6 +21,23 @@ def test_modal_with_settings(client, settings):
         "Test New Notice",
         "<p>Some content</p>\n\n<p>with multiple lines</p>",
         'id="noticesModal"',
+        'style="background: #fff;"',
+    )
+
+
+def test_modal_with_old_colour_settings(client, settings):
+    settings.NOTICES_TITLE = "Test New Notice"
+    settings.NOTICES_CONTENT = "Some content\n\nwith multiple lines"
+    settings.NOTICES_VERSION = 1
+    settings.NOTICES_TIMEOUT_SECONDS = 10
+    settings.NOTICES_COLOR = "#fff"
+    resp = client.get("/", follow=True)
+    assert_in_content(
+        resp,
+        "Test New Notice",
+        "<p>Some content</p>\n\n<p>with multiple lines</p>",
+        'id="noticesModal"',
+        'style="background: #fff;"',
     )
 
 

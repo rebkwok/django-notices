@@ -1,14 +1,26 @@
 <div id="noticesModal" class="modal-window">
   <div 
     class="modal-title" 
-    {% if notices_color %}style="border-color: {{ notices_color }};"{% endif %}
+    {% if notices_colour %}style="border-color: {{ notices_colour }};"{% endif %}
   >{{ notices_title }}</div>
   <div class="modal-content">{{ notices_content | linebreaks }}</div>
   <button 
     class="modal-btn" 
-    {% if notices_color %}style="background: {{ notices_color }};"{% endif %} 
-    onclick="noticesCookie.setCookie('{{ notices_version }}')"
+    {% if notices_colour %}style="background: {{ notices_colour }};"{% endif %}
+    {% if notices_timeout_seconds %}
+      onclick="noticesCookie.setCookie('{{ notices_version }}', {{ notices_timeout_seconds }})"
+    {% else %}
+      onclick="noticesCookie.setCookie('{{ notices_version }}')"
+    {% endif %}
   >OK</button>
 </div>
 
-<div class="modal-fader" id="noticesModalFader" onclick="noticesCookie.setCookie('{{ notices_version }}')"></div>
+<div 
+  class="modal-fader" 
+  id="noticesModalFader" 
+  {% if notices_timeout_seconds %}
+      onclick="noticesCookie.setCookie('{{ notices_version }}', {{ notices_timeout_seconds }})"
+  {% else %}
+    onclick="noticesCookie.setCookie('{{ notices_version }}')"
+  {% endif %}
+></div>

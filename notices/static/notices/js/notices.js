@@ -9,11 +9,11 @@
 )();
 
 var noticesCookie = {
-    createCookie: function (value, days) {
+    createCookie: function (value, timeout_seconds) {
         var date = new Date(),
         expires = '';
-        if (days) {
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        if (timeout_seconds) {
+        date.setTime(date.getTime() + (timeout_seconds * 1000));
         expires = "; expires=" + date.toGMTString();
         } else {
         expires = "";
@@ -27,8 +27,8 @@ var noticesCookie = {
         document.cookie = "notices_seen" + "=" + value + expires + "; path=/" + secureString;
     },
     
-    setCookie: function (version) {
-        this.createCookie(version, 10 * 365);
+    setCookie: function (version, timeout_seconds) {
+        this.createCookie(version, timeout_seconds);
         this.hidenoticedModal()
     },
     

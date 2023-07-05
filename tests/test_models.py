@@ -38,7 +38,32 @@ def test_from_settings_with_settings(settings):
         "notices_version": 3,
         "notices_title": "New!",
         "notices_content": "",
-        "notices_color": None,
+        "notices_colour": None,
+        "notices_timeout_seconds": None,
+    }
+
+
+def test_from_settings_with_new_colour_setting(settings):
+    settings.NOTICES_VERSION = 3
+    settings.NOTICES_COLOUR = "#fff"
+    assert Notice.from_settings() == {
+        "notices_version": 3,
+        "notices_title": "New!",
+        "notices_content": "",
+        "notices_colour": "#fff",
+        "notices_timeout_seconds": None,
+    }
+
+
+def test_from_settings_with_old_colour_setting(settings):
+    settings.NOTICES_VERSION = 3
+    settings.NOTICES_COLOR = "#fff"
+    assert Notice.from_settings() == {
+        "notices_version": 3,
+        "notices_title": "New!",
+        "notices_content": "",
+        "notices_colour": "#fff",
+        "notices_timeout_seconds": None,
     }
 
 

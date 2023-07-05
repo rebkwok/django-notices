@@ -9,6 +9,7 @@ class Notice(models.Model):
     content = models.TextField()
     version = models.PositiveIntegerField(blank=True, unique=True)
     expires_at = models.DateTimeField(null=True, blank=True)
+    timeout_seconds = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
         return (
@@ -34,11 +35,19 @@ class Notice(models.Model):
             except (TypeError, ValueError):
                 ...
             else:
+                if hasattr(settings, "NOTICES_COLOUR"):
+                    colour_setting = "NOTICES_COLOUR"
+                else:
+                    colour_setting = "NOTICES_COLOR"
+
                 return {
                     "notices_version": version,
                     "notices_title": getattr(settings, "NOTICES_TITLE", "New!"),
                     "notices_content": getattr(settings, "NOTICES_CONTENT", ""),
-                    "notices_color": getattr(settings, "NOTICES_COLOR", None),
+                    "notices_colour": getattr(settings, colour_setting, None),
+                    "notices_timeout_seconds": getattr(
+                        settings, "NOTICES_TIMEOUT_SECONDS", None
+                    ),
                 }
 
     def has_expired(self):

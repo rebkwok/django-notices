@@ -40,7 +40,7 @@ TEMPLATES = [
 
 To customise the notice colour (button and title border), add
 ```
-NOTICES_COLOR=<color>  # any css-acceptable colour
+NOTICES_COLOUR=<colour>  # any css-acceptable colour
 ```
 
 ## Static assets
@@ -57,16 +57,18 @@ and add the modal:
 {% NoticesModal %} 
 ```
 
-The modal will be shown.  Once it has been dismissed it won't be shown again unless the notice version changes (see below) or the `notice_seen` cookie is deleted.
+The modal will be shown.  Once it has been dismissed it won't be shown again unless the notice version changes (see below), the `notice_seen` cookie is deleted, or the notice timeout is reached.
 
 ## Setting/updating the notice
 
 ### via models and django admin
 Add a `Notice` instance in the django admin. 
 
-Notices have `title`, `content`, `version` and optional `expires_at` fields.
+Notices have `title`, `content`, `version` and optional `timeout_seconds` and `expires_at` fields.
 
 Version can be any positive number; it defaults to incrementing the last version number.  Set the `expires_at` datetime to avoid showing this notice after the specified date, even if the user has never seen/dismissed it.
+
+Set the `timeout_seconds` to set a cookie timeout; this means the notice will be reshown.
 
 To show a new notice, add another Notice instance with an incremented version number.
 
@@ -76,5 +78,6 @@ Override the Notice model by adding to your `settings.py`:
 `NOTICES_VERSION` # an integer
 `NOTICES_TITLE`  # optional, default = "New!"
 `NOTICES_CONTENT`  # optional, default = ""
+`NOTICES_TIMEOUT_SECONDS`  # optional, default = None
 
 Set `NOTICES_VERSION = 0` to clear the cookie and disable showing notices at all.

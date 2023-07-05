@@ -26,6 +26,38 @@ def test_with_notice(client, settings, notice):
     assert_in_content(resp, "Test title", "<p>A new thing</p>", 'id="noticesModal"')
 
 
+def test_colour_settings_with_notice(client, settings, notice):
+    assert notice.version == 1
+    settings.NOTICES_COLOUR = "#fff"
+    for setting in ["NOTICES_TITLE", "NOTICES_CONTENT", "NOTICES_VERSION"]:
+        assert not hasattr(settings, setting)
+
+    resp = client.get("/", follow=True)
+    assert_in_content(
+        resp,
+        "Test title",
+        "<p>A new thing</p>",
+        'id="noticesModal"',
+        'style="background: #fff;"',
+    )
+
+
+def test_old_colour_settings_with_notice(client, settings, notice):
+    assert notice.version == 1
+    settings.NOTICES_COLOR = "#fff"
+    for setting in ["NOTICES_TITLE", "NOTICES_CONTENT", "NOTICES_VERSION"]:
+        assert not hasattr(settings, setting)
+
+    resp = client.get("/", follow=True)
+    assert_in_content(
+        resp,
+        "Test title",
+        "<p>A new thing</p>",
+        'id="noticesModal"',
+        'style="background: #fff;"',
+    )
+
+
 def test_latest_notice(client, settings, notice):
     assert Notice.latest_version() == 1
     Notice.objects.create(title="New Title", content="")
