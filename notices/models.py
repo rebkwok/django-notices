@@ -52,6 +52,7 @@ class Notice(models.Model):
                     "notices_timeout_seconds": getattr(
                         settings, "NOTICES_TIMEOUT_SECONDS", None
                     ),
+                    "notices_safe": getattr(settings, "NOTICES_SAFE", False),
                 }
 
     def has_expired(self):

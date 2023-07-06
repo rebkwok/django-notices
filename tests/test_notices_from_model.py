@@ -29,6 +29,7 @@ def test_with_notice(client, settings, notice):
 def test_colour_settings_with_notice(client, settings, notice):
     assert notice.version == 1
     settings.NOTICES_COLOUR = "#fff"
+    settings.NOTICES_SAFE = True
     for setting in ["NOTICES_TITLE", "NOTICES_CONTENT", "NOTICES_VERSION"]:
         assert not hasattr(settings, setting)
 

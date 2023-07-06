@@ -76,6 +76,10 @@ Set the `timeout_seconds` to set a cookie timeout; this means the notice will be
 
 To show a new notice, add another Notice instance with an incremented version number.
 
+### configure settings
+`NOTICES_COLOUR`: Change the colour of the popup with any css colour
+`NOTICES_SAFE`: Mark notices content as safe - allow any arbitrary html. Default False.
+
 ### via django settings
 
 Override the Notice model by adding to your `settings.py`:

@@ -54,12 +54,14 @@ def test_from_settings_no_notice():
 
 def test_from_settings_with_settings(settings):
     settings.NOTICES_VERSION = 3
+    settings.NOTICES_SAFE = True
     assert Notice.from_settings() == {
         "notices_version": 3,
         "notices_title": "New!",
         "notices_content": "",
         "notices_colour": None,
         "notices_timeout_seconds": None,
+        "notices_safe": True,
     }
 
 
@@ -72,18 +74,21 @@ def test_from_settings_with_new_colour_setting(settings):
         "notices_content": "",
         "notices_colour": "#fff",
         "notices_timeout_seconds": None,
+        "notices_safe": False,
     }
 
 
 def test_from_settings_with_old_colour_setting(settings):
     settings.NOTICES_VERSION = 3
     settings.NOTICES_COLOR = "#fff"
+    settings.NOTICES_SAFE = False
     assert Notice.from_settings() == {
         "notices_version": 3,
         "notices_title": "New!",
         "notices_content": "",
         "notices_colour": "#fff",
         "notices_timeout_seconds": None,
+        "notices_safe": False,
     }
 
 

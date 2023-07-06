@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.utils.safestring import mark_safe
 
 from notices.models import Notice
 
@@ -17,6 +18,9 @@ def notices(request):
         latest_notice = Notice.latest_notice()
         title = latest_notice.title
         content = latest_notice.content
+        safe = getattr(settings, "NOTICES_SAFE", False)
+        if safe:
+            content = mark_safe(content)
         if hasattr(settings, "NOTICES_COLOUR"):
             colour_setting = "NOTICES_COLOUR"
         else:

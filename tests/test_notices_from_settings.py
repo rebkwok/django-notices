@@ -14,6 +14,7 @@ def test_modal_with_settings(client, settings):
     settings.NOTICES_VERSION = 1
     settings.NOTICES_TIMEOUT_SECONDS = 10
     settings.NOTICES_COLOUR = "#fff"
+    settings.NOTICES_SAFE = True
 
     resp = client.get("/", follow=True)
     assert_in_content(
