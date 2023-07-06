@@ -29,7 +29,7 @@ class NoticesModal(InclusionTag):
                 return ""
 
             latest_notice = Notice.latest_notice()
-            if latest_notice.has_expired():
+            if latest_notice.has_expired() or not latest_notice.has_started():
                 return ""
 
         if version == 0:  # version 0 --> clear the cookie

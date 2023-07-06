@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 import pytest
 
@@ -12,7 +12,7 @@ from .test_utils import assert_not_in_content, assert_in_content
 pytestmark = pytest.mark.django_db
 
 
-def test_no_notice(client, settings):
+def test_no_notice(client):
     resp = client.get("/", follow=True)
     assert_not_in_content(resp, 'id="noticesClear"', 'id="noticesModal"')
 
@@ -58,7 +58,7 @@ def test_old_colour_settings_with_notice(client, settings, notice):
     )
 
 
-def test_latest_notice(client, settings, notice):
+def test_latest_notice(client, notice):
     assert Notice.latest_version() == 1
     Notice.objects.create(title="New Title", content="")
     assert Notice.latest_version() == 2
@@ -66,7 +66,7 @@ def test_latest_notice(client, settings, notice):
     assert_in_content(resp, "New Title", 'id="noticesModal"')
 
 
-def test_expired_notice(client, settings, notice):
+def test_expired_notice(client, notice):
     notice.expires_at = timezone.now() - timedelta(1)
     notice.save()
     resp = client.get("/", follow=True)
@@ -78,7 +78,21 @@ def test_expired_notice(client, settings, notice):
     assert_in_content(resp, "Test title", 'id="noticesModal"')
 
 
-def test_version_cookie_seen(client, settings, notice):
+@pytest.mark.freeze_time("2022-09-01")
+def test_not_started_notice(client, notice):
+    # not started, start date shown
+    notice.starts_at = datetime(2022, 10, 1, 10, tzinfo=timezone.utc)
+    notice.save()
+    resp = client.get("/", follow=True)
+    assert_not_in_content(resp, "Test title", 'id="noticesClear"', 'id="noticesModal"')
+
+    notice.starts_at = datetime(2022, 8, 1, 10, tzinfo=timezone.utc)
+    notice.save()
+    resp = client.get("/", follow=True)
+    assert_in_content(resp, "Test title", 'id="noticesModal"')
+
+
+def test_version_cookie_seen(client, notice):
     client.cookies = SimpleCookie({"notices_seen": "1"})
     resp = client.get("/", follow=True)
     assert_not_in_content(resp, "Test title", 'id="noticesModal"')

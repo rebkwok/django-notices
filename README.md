@@ -64,9 +64,13 @@ The modal will be shown.  Once it has been dismissed it won't be shown again unl
 ### via models and django admin
 Add a `Notice` instance in the django admin. 
 
-Notices have `title`, `content`, `version` and optional `timeout_seconds` and `expires_at` fields.
+Notices have `title`, `content`, `version` and optional `timeout_seconds`, `starts_at` and `expires_at` fields.
 
-Version can be any positive number; it defaults to incrementing the last version number.  Set the `expires_at` datetime to avoid showing this notice after the specified date, even if the user has never seen/dismissed it.
+Version can be any positive number; it defaults to incrementing the last version number.  Set the `expires_at` datetime to avoid showing this notice after the specified date, even if the user has never seen/dismissed it. Set the `starts_at` datetime to avoid showing the notice until a
+particular date/time.
+
+Note that only the notice with the latest version will be shown. If the latest version
+has not started yet, a previous version will not be shown, even if it hasn't expired. 
 
 Set the `timeout_seconds` to set a cookie timeout; this means the notice will be reshown.
 
