@@ -54,7 +54,7 @@ In templates, load the tags:
 
 and add the modal:
 ```
-{% NoticesModal %} 
+{% notices_modal %} 
 ```
 
 The modal will be shown.  Once it has been dismissed it won't be shown again unless the notice version changes (see below), the `notice_seen` cookie is deleted, or the notice timeout is reached.

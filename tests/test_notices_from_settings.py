@@ -1,9 +1,8 @@
-import pytest
-
 from http.cookies import SimpleCookie
 
-from .test_utils import assert_not_in_content, assert_in_content
+import pytest
 
+from .test_utils import assert_in_content, assert_not_in_content
 
 pytestmark = pytest.mark.django_db
 

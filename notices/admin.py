@@ -5,4 +5,4 @@ from .models import Notice
 
 @register(Notice)
 class NoticeAdmin(ModelAdmin):
-    ...
+    pass

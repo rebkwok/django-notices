@@ -1,0 +1,10 @@
+django
+django-classy-tags
+black
+pytest-django
+pytest-cov
+pytest-env
+flake8
+flake8-pyproject
+isort
+pytest-freezer

@@ -1,13 +1,12 @@
-from datetime import datetime, timedelta
-
-import pytest
-
-from django.utils import timezone
-
+from datetime import UTC, datetime, timedelta
 from http.cookies import SimpleCookie
 
+import pytest
+from django.utils import timezone
+
 from notices.models import Notice
-from .test_utils import assert_not_in_content, assert_in_content
+
+from .test_utils import assert_in_content, assert_not_in_content
 
 pytestmark = pytest.mark.django_db
 
@@ -82,12 +81,12 @@ def test_expired_notice(client, notice):
 @pytest.mark.freeze_time("2022-09-01")
 def test_not_started_notice(client, notice):
     # not started, start date shown
-    notice.starts_at = datetime(2022, 10, 1, 10, tzinfo=timezone.utc)
+    notice.starts_at = datetime(2022, 10, 1, 10, tzinfo=UTC)
     notice.save()
     resp = client.get("/", follow=True)
     assert_not_in_content(resp, "Test title", 'id="noticesClear"', 'id="noticesModal"')
 
-    notice.starts_at = datetime(2022, 8, 1, 10, tzinfo=timezone.utc)
+    notice.starts_at = datetime(2022, 8, 1, 10, tzinfo=UTC)
     notice.save()
     resp = client.get("/", follow=True)
     assert_in_content(resp, "Test title", 'id="noticesModal"')

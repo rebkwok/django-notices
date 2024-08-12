@@ -1,8 +1,8 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+
 import pytest
 
 from notices.models import Notice
-
 
 pytestmark = pytest.mark.django_db
 
@@ -23,15 +23,15 @@ def test_str(notice):
 
 
 def test_str_with_expiry(notice):
-    notice.expires_at = datetime(2022, 12, 1, 10, tzinfo=timezone.utc)
+    notice.expires_at = datetime(2022, 12, 1, 10, tzinfo=UTC)
     notice.save()
     assert str(notice) == "v1 - expires: 01-Dec-2022 10:00 UTC"
 
 
 def test_str_with_start_and_expiry(notice):
     # already started, start date not shown
-    notice.starts_at = datetime(2022, 10, 1, 10, tzinfo=timezone.utc)
-    notice.expires_at = datetime(2022, 12, 1, 10, tzinfo=timezone.utc)
+    notice.starts_at = datetime(2022, 10, 1, 10, tzinfo=UTC)
+    notice.expires_at = datetime(2022, 12, 1, 10, tzinfo=UTC)
     notice.save()
     assert str(notice) == "v1 - expires: 01-Dec-2022 10:00 UTC"
 
@@ -39,8 +39,8 @@ def test_str_with_start_and_expiry(notice):
 @pytest.mark.freeze_time("2022-09-01")
 def test_str_with_start_and_expiry_not_started(notice):
     # not started, start date shown
-    notice.starts_at = datetime(2022, 10, 1, 10, tzinfo=timezone.utc)
-    notice.expires_at = datetime(2022, 12, 1, 10, tzinfo=timezone.utc)
+    notice.starts_at = datetime(2022, 10, 1, 10, tzinfo=UTC)
+    notice.expires_at = datetime(2022, 12, 1, 10, tzinfo=UTC)
     notice.save()
     assert (
         str(notice)
